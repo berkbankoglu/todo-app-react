@@ -6,6 +6,7 @@ import ReferencePanel from './components/ReferencePanel';
 function App() {
   const [todos, setTodos] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('active');
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const saved = localStorage.getItem('todos');
@@ -17,6 +18,13 @@ function App() {
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const addTodo = (category, text) => {
     const newTodo = {
@@ -58,10 +66,34 @@ function App() {
     completed: todos.filter(t => t.completed).length
   };
 
+  const formatDate = () => {
+    const days = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
+    const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+
+    const day = days[currentTime.getDay()];
+    const date = currentTime.getDate();
+    const month = months[currentTime.getMonth()];
+    const year = currentTime.getFullYear();
+
+    return `${day}, ${date} ${month} ${year}`;
+  };
+
+  const formatTime = () => {
+    return currentTime.toLocaleTimeString('tr-TR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+  };
+
   return (
     <div className="container">
       <div className="header-row">
         <h1>To-Do</h1>
+        <div className="date-time">
+          <div className="date">{formatDate()}</div>
+          <div className="time">{formatTime()}</div>
+        </div>
       </div>
 
       <div className="stats">
