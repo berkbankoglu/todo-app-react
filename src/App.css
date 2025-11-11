@@ -233,12 +233,12 @@ body.light .fc-list-back {
 }
 
 body.light .timer-display-small {
-    background: #ffffff;
+    background: #f8f8f8;
     border-color: #e0e0e0;
 }
 
 body.light .timer-time-text {
-    color: #1a1a1a;
+    color: #666;
 }
 
 body.light .timer-btn-small {
