@@ -346,8 +346,13 @@ function ReferencePanel() {
       return;
     }
 
-    // Boş alana sol tıklanırsa selection box başlat
-    if (e.target === contentRef.current || e.target.classList.contains('ref-panel-content')) {
+    // SHIFT tuşu ile boş alana sol tıklanırsa selection box başlat
+    const isCanvasArea = e.target === canvasRef.current ||
+                         e.target.classList.contains('ref-canvas') ||
+                         e.target.classList.contains('ref-canvas-content') ||
+                         e.target.classList.contains('ref-empty-state');
+
+    if (e.shiftKey && isCanvasArea && e.button === 0) {
       const rect = contentRef.current.getBoundingClientRect();
       const startX = (e.clientX - rect.left) / zoomLevel;
       const startY = (e.clientY - rect.top + contentRef.current.scrollTop) / zoomLevel;
@@ -368,15 +373,20 @@ function ReferencePanel() {
   };
 
   const handleDoubleClick = (e) => {
-    // Çift tıkla text box oluştur
-    if (e.target === contentRef.current || e.target.classList.contains('ref-panel-content')) {
+    // Çift tıkla text box oluştur - canvas alanında herhangi bir yere
+    const isCanvasArea = e.target === canvasRef.current ||
+                         e.target.classList.contains('ref-canvas') ||
+                         e.target.classList.contains('ref-canvas-content') ||
+                         e.target.classList.contains('ref-empty-state');
+
+    if (isCanvasArea) {
       const rect = contentRef.current.getBoundingClientRect();
       const x = (e.clientX - rect.left) / zoomLevel;
       const y = (e.clientY - rect.top + contentRef.current.scrollTop) / zoomLevel;
 
       const newText = {
         id: Date.now(),
-        content: 'Yeni metin',
+        content: 'New text',
         x,
         y,
         width: 200,
@@ -520,7 +530,7 @@ function ReferencePanel() {
                 ✍️ Add text with <strong>Double Click</strong>
               </div>
               <div style={{ fontSize: '12px', color: '#888', marginTop: '5px' }}>
-                🖱️ Rectangle selection with <strong>Ctrl+Alt+Drag</strong>
+                🖱️ Rectangle selection with <strong>Shift+Drag</strong>
               </div>
             </div>
           ) : (

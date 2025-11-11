@@ -138,6 +138,28 @@ function App() {
     }
   };
 
+  // Reset: Tüm verileri sil
+  const resetAllData = () => {
+    const confirmed = window.confirm('⚠️ WARNING: This will delete all your data (todos, references, flashcards, timer settings). Are you sure?');
+    if (!confirmed) return;
+
+    const doubleConfirm = window.confirm('⚠️ FINAL WARNING: This action cannot be undone! Continue?');
+    if (!doubleConfirm) return;
+
+    // Tüm localStorage verilerini temizle (theme hariç)
+    const currentTheme = localStorage.getItem('theme');
+    localStorage.clear();
+    if (currentTheme) {
+      localStorage.setItem('theme', currentTheme);
+    }
+
+    // State'leri sıfırla
+    setTodos([]);
+
+    alert('✅ All data has been reset successfully! Page will reload.');
+    window.location.reload();
+  };
+
   const filteredTodos = todos.filter(todo => {
     if (currentFilter === 'active') return !todo.completed;
     if (currentFilter === 'completed') return todo.completed;
@@ -170,6 +192,9 @@ function App() {
           </button>
           <button onClick={importData} className="import-btn" title="Import data">
             📤 Import
+          </button>
+          <button onClick={resetAllData} className="reset-btn" title="Reset all data">
+            🗑️ Reset
           </button>
         </div>
       </div>

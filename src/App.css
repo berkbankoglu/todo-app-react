@@ -43,6 +43,11 @@ body.dark .ref-canvas {
     border-color: #444;
 }
 
+body.dark .category-count {
+    background: #333;
+    color: #999;
+}
+
 /* Light Theme */
 body.light {
     background: #f5f5f5;
@@ -273,7 +278,8 @@ h1 {
 
 .export-btn,
 .import-btn,
-.theme-toggle-btn {
+.theme-toggle-btn,
+.reset-btn {
     padding: 8px 16px;
     background: #2a2a2a;
     color: #e0e0e0;
@@ -294,7 +300,8 @@ h1 {
 
 .export-btn:hover,
 .import-btn:hover,
-.theme-toggle-btn:hover {
+.theme-toggle-btn:hover,
+.reset-btn:hover {
     background: #333;
     border-color: #555;
     transform: translateY(-1px);
@@ -302,13 +309,25 @@ h1 {
 
 .export-btn:active,
 .import-btn:active,
-.theme-toggle-btn:active {
+.theme-toggle-btn:active,
+.reset-btn:active {
     transform: translateY(0);
+}
+
+.reset-btn {
+    background: #4a1515;
+    border-color: #6a2525;
+}
+
+.reset-btn:hover {
+    background: #5a1f1f;
+    border-color: #7a3535;
 }
 
 body.light .export-btn,
 body.light .import-btn,
-body.light .theme-toggle-btn {
+body.light .theme-toggle-btn,
+body.light .reset-btn {
     background: #ffffff;
     color: #1a1a1a;
     border-color: #e0e0e0;
@@ -316,9 +335,21 @@ body.light .theme-toggle-btn {
 
 body.light .export-btn:hover,
 body.light .import-btn:hover,
-body.light .theme-toggle-btn:hover {
+body.light .theme-toggle-btn:hover,
+body.light .reset-btn:hover {
     background: #f0f0f0;
     border-color: #d0d0d0;
+}
+
+body.light .reset-btn {
+    background: #ffe0e0;
+    border-color: #ffb0b0;
+    color: #8a1515;
+}
+
+body.light .reset-btn:hover {
+    background: #ffd0d0;
+    border-color: #ff9090;
 }
 
 .timer-compact {
